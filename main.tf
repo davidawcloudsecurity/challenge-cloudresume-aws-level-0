@@ -13,7 +13,7 @@ variable "region" {
   default = "us-east-1"
 }
 
-variable setup_filename {
+variable "setup_filename" {
   default = "setup_wordpress_nginx_ready_state.sh"
 }
 
@@ -76,7 +76,7 @@ resource "aws_route_table_association" "public_subnet_association" {
 # Create Security Group
 resource "aws_security_group" "public_security_group" {
   name        = "allow_80_443"
-  description = "Allow SSH inbound traffic"
+  description = "Allow HTTP/HTTPS inbound traffic"
   vpc_id      = aws_vpc.main.id
 
   ingress {
@@ -153,50 +153,11 @@ resource "aws_instance" "ubuntu_instance" {
 resource "aws_quicksight_user" "quicksight_user" {
   aws_account_id = data.aws_caller_identity.current.account_id
   namespace      = "default"
-  email          = "user@example.com" # Replace with the actual email
+  email          = "user@example.com"
   identity_type  = "IAM"
   user_name      = "QuicksightAdmin"
   user_role      = "ADMIN"
 }
 
-# Optionally, create a QuickSight IAM role with permissions for data access
-resource "aws_iam_role" "quicksight_role" {
-  name = "quicksight_role"
-
-  assume_role_policy = jsonencode({
-    "Version": "2012-10-17",
-    "Statement": [
-      {
-        "Effect": "Allow",
-        "Principal": {
-          "Service": "quicksight.amazonaws.com"
-        },
-        "Action": "sts:AssumeRole"
-      }
-    ]
-  })
-
-  # Attach policies needed for QuickSight to access S3 and other data sources
-  inline_policy {
-    name = "QuicksightS3AccessPolicy"
-    policy = jsonencode({
-      "Version": "2012-10-17",
-      "Statement": [
-        {
-          "Effect": "Allow",
-          "Action": [
-            "s3:GetObject",
-            "s3:ListBucket"
-          ],
-          "Resource": [
-            "arn:aws:s3:::your-s3-bucket",
-            "arn:aws:s3:::your-s3-bucket/*"
-          ]
-        }
-      ]
-    })
-  }
-}
-
-# Define the AWS Provider Configuration to include the current account
+# Get the current AWS account ID
 data "aws_caller_identity" "current" {}
