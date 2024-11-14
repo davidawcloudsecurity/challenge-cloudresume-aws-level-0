@@ -157,11 +157,6 @@ resource "aws_quicksight_user" "quicksight_user" {
   identity_type  = "IAM"
   user_name      = "QuicksightAdmin"
   user_role      = "ADMIN"
-
-  # Optional tags
-  tags = {
-    Name = "QuicksightAdmin"
-  }
 }
 
 # Optionally, create a QuickSight IAM role with permissions for data access
