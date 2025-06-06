@@ -158,7 +158,7 @@ resource "aws_instance" "wordpress_instance" {
 
   tags = {
     Name = "my-first-web-app_linux",
-    PatchGroup = david
+    PatchGroup = "david"
   }
 }
 
@@ -172,6 +172,6 @@ resource "aws_instance" "windows_instance" {
 
   tags = {
     Name = "my-first-web-app_windows",
-    PatchGroup = david
+    PatchGroup = "david"
   }
 }
