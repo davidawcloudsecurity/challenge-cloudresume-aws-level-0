@@ -1,3 +1,5 @@
+#ps1
+
 # Allow HTTP and HTTPS in Windows Firewall
 New-NetFirewallRule -DisplayName "Allow HTTP" -Direction Inbound -LocalPort 80 -Protocol TCP -Action Allow
 New-NetFirewallRule -DisplayName "Allow HTTPS" -Direction Inbound -LocalPort 443 -Protocol TCP -Action Allow
