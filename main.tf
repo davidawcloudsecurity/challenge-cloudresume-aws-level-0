@@ -18,7 +18,7 @@ variable setup_filename_linux {
 }
 
 variable setup_filename_windows {
-  default = "setup_wordpress_nginx_ready_state.sh"
+  default = "setup_wordpress.ps1"
 }
 
 variable "ami_linux" {
@@ -157,7 +157,7 @@ resource "aws_instance" "wordpress_instance" {
   user_data = filebase64("${var.setup_filename_linux}")
 
   tags = {
-    Name = "my-first-web-app"
+    Name = "my-first-web-app_linux"
   }
 }
 
@@ -170,6 +170,6 @@ resource "aws_instance" "windows_instance" {
   user_data = filebase64("${var.setup_filename_windows}")
 
   tags = {
-    Name = "my-first-web-app"
+    Name = "my-first-web-app_windows"
   }
 }
