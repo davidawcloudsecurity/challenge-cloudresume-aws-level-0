@@ -157,7 +157,8 @@ resource "aws_instance" "wordpress_instance" {
   user_data = filebase64("${var.setup_filename_linux}")
 
   tags = {
-    Name = "my-first-web-app_linux"
+    Name = "my-first-web-app_linux",
+    PatchGroup = david
   }
 }
 
@@ -170,6 +171,7 @@ resource "aws_instance" "windows_instance" {
   user_data = filebase64("${var.setup_filename_windows}")
 
   tags = {
-    Name = "my-first-web-app_windows"
+    Name = "my-first-web-app_windows",
+    PatchGroup = david
   }
 }
